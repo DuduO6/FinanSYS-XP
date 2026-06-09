@@ -1,0 +1,237 @@
+.authenticated-shell {
+  background: #eef5f8;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  min-height: 100vh;
+  transition: grid-template-columns 220ms var(--ease-out);
+}
+
+.authenticated-shell.sidebar-collapsed {
+  grid-template-columns: 88px minmax(0, 1fr);
+}
+
+.app-sidebar {
+  background: #101827;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 100vh;
+  padding: 24px;
+  position: sticky;
+  top: 0;
+  transition:
+    padding 220ms var(--ease-out),
+    width 220ms var(--ease-out);
+}
+
+.sidebar-top {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.sidebar-brand {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  min-width: 0;
+}
+
+.collapsed-brand {
+  display: none;
+}
+
+.sidebar-brand > span {
+  align-items: center;
+  background: #157f65;
+  border-radius: 8px;
+  display: flex;
+  font-weight: 900;
+  height: 44px;
+  justify-content: center;
+  width: 44px;
+}
+
+.sidebar-brand small {
+  color: #aeb8c7;
+  display: block;
+  margin-top: 3px;
+}
+
+.sidebar-brand div {
+  min-width: 0;
+}
+
+.sidebar-brand strong,
+.sidebar-brand small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-toggle {
+  align-items: center;
+  background: #1d2a42;
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  display: flex;
+  flex: 0 0 auto;
+  font-weight: 900;
+  height: 36px;
+  justify-content: center;
+  transition:
+    background-color 180ms var(--ease-out),
+    transform 180ms var(--ease-out);
+  width: 36px;
+}
+
+.sidebar-toggle:hover {
+  background: #263a5d;
+  transform: translateY(-1px);
+}
+
+.sidebar-nav {
+  display: grid;
+  gap: 8px;
+}
+
+.sidebar-nav button,
+.sidebar-logout {
+  align-items: center;
+  border: 0;
+  border-radius: 8px;
+  display: flex;
+  gap: 10px;
+  font-weight: 800;
+  min-height: 42px;
+  padding: 0 12px;
+  text-align: left;
+  transition:
+    background-color 180ms var(--ease-out),
+    color 180ms var(--ease-out),
+    transform 180ms var(--ease-out);
+}
+
+.nav-short {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  display: none;
+  flex: 0 0 auto;
+  font-size: 0.78rem;
+  height: 28px;
+  justify-content: center;
+  width: 32px;
+}
+
+.sidebar-nav button {
+  background: transparent;
+  color: #cbd5e1;
+}
+
+.sidebar-nav button:hover,
+.sidebar-nav button.active {
+  background: #1d2a42;
+  color: #fff;
+  transform: translateX(3px);
+}
+
+.sidebar-logout {
+  background: #26354d;
+  color: #fff;
+  margin-top: auto;
+}
+
+.sidebar-logout:hover {
+  background: #334461;
+}
+
+.authenticated-content {
+  min-width: 0;
+}
+
+.sidebar-collapsed .app-sidebar {
+  align-items: center;
+  gap: 18px;
+  padding: 20px 14px;
+}
+
+.sidebar-collapsed .sidebar-top {
+  justify-content: center;
+}
+
+.sidebar-collapsed .sidebar-top .sidebar-brand {
+  display: none;
+}
+
+.sidebar-collapsed .collapsed-brand {
+  display: flex;
+}
+
+.sidebar-collapsed .collapsed-brand div {
+  display: none;
+}
+
+.sidebar-collapsed .sidebar-nav {
+  width: 100%;
+}
+
+.sidebar-collapsed .sidebar-nav button,
+.sidebar-collapsed .sidebar-logout {
+  justify-content: center;
+  padding: 0;
+  text-align: center;
+}
+
+.sidebar-collapsed .nav-label {
+  display: none;
+}
+
+.sidebar-collapsed .nav-short {
+  display: flex;
+}
+
+.sidebar-collapsed .sidebar-nav button:hover,
+.sidebar-collapsed .sidebar-nav button.active {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 860px) {
+  .authenticated-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .authenticated-shell.sidebar-collapsed {
+    grid-template-columns: 1fr;
+  }
+
+  .app-sidebar {
+    min-height: auto;
+    position: static;
+  }
+
+  .sidebar-collapsed .app-sidebar {
+    align-items: stretch;
+  }
+
+  .sidebar-collapsed .sidebar-nav,
+  .sidebar-collapsed .sidebar-logout,
+  .sidebar-collapsed .collapsed-brand {
+    display: none;
+  }
+
+  .sidebar-collapsed .sidebar-top .sidebar-brand {
+    display: flex;
+  }
+
+  .sidebar-collapsed .nav-label {
+    display: inline;
+  }
+
+  .sidebar-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

@@ -1,0 +1,410 @@
+.achievements-page,
+.reports-page,
+.profile-page,
+.investments-page,
+.categories-page {
+  animation: page-in 420ms var(--ease-out) both;
+  background:
+    radial-gradient(circle at top left, rgba(47, 110, 203, 0.1), transparent 32rem),
+    linear-gradient(180deg, #eef5f8 0%, #f7fafc 100%);
+  display: grid;
+  gap: 24px;
+  min-height: 100vh;
+  padding: 32px clamp(18px, 4vw, 48px);
+}
+
+.achievements-header,
+.reports-header,
+.profile-header,
+.investments-header,
+.categories-header {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(220, 229, 239, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 16px 38px rgba(18, 32, 56, 0.08);
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+  padding: 22px;
+}
+
+.achievements-badge,
+.reports-badge,
+.profile-badge,
+.investments-badge,
+.categories-badge {
+  background: #132238;
+  border-radius: 8px;
+  color: #fff;
+  display: inline-flex;
+  font-weight: 800;
+  padding: 10px 14px;
+}
+
+.achievements-header h1,
+.reports-header h1,
+.profile-header h1,
+.investments-header h1,
+.categories-header h1 {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1;
+  margin: 18px 0 10px;
+}
+
+.achievements-header p,
+.reports-header p,
+.profile-header p,
+.investments-header p,
+.categories-header p {
+  color: #5f6d82;
+  margin: 0;
+}
+
+.achievements-actions,
+.reports-actions,
+.profile-actions,
+.investments-actions,
+.categories-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.achievements-actions button,
+.reports-actions button,
+.profile-actions button,
+.investments-actions button,
+.categories-actions button,
+.profile-form button,
+.investment-form button,
+.category-form button {
+  background: #e8eef6;
+  border: 0;
+  border-radius: 8px;
+  color: #172033;
+  font-weight: 800;
+  min-height: 42px;
+  padding: 0 16px;
+  transition:
+    background-color 180ms var(--ease-out),
+    box-shadow 180ms var(--ease-out),
+    transform 180ms var(--ease-out);
+}
+
+.profile-form button,
+.investment-form button,
+.category-form button {
+  background: #157f65;
+  color: #fff;
+}
+
+.achievements-actions button:hover,
+.reports-actions button:hover,
+.profile-actions button:hover,
+.investments-actions button:hover,
+.categories-actions button:hover,
+.profile-form button:hover,
+.investment-form button:hover,
+.category-form button:hover {
+  box-shadow: 0 10px 20px rgba(18, 32, 56, 0.1);
+  transform: translateY(-1px);
+}
+
+.xp-panel,
+.achievement-card,
+.challenge-card,
+.report-panel,
+.profile-form,
+.profile-stats article,
+.investment-form,
+.investment-card,
+.investments-summary article,
+.category-form,
+.category-card {
+  background: #fff;
+  border: 1px solid #dce5ef;
+  border-radius: 8px;
+  box-shadow: var(--shadow-soft);
+  min-width: 0;
+  padding: 20px;
+  transition:
+    box-shadow 220ms var(--ease-out),
+    transform 220ms var(--ease-out);
+}
+
+.xp-panel:hover,
+.achievement-card:hover,
+.challenge-card:hover,
+.report-panel:hover,
+.profile-form:hover,
+.profile-stats article:hover,
+.investment-form:hover,
+.investment-card:hover,
+.investments-summary article:hover,
+.category-form:hover,
+.category-card:hover {
+  box-shadow: var(--shadow-lifted);
+  transform: translateY(-2px);
+}
+
+.xp-panel {
+  border-top: 4px solid #2f6ecb;
+  display: grid;
+  gap: 14px;
+}
+
+.xp-panel div:first-child {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.xp-panel strong {
+  font-size: 1.8rem;
+}
+
+.achievement-progress {
+  background: #e5edf5;
+  border-radius: 999px;
+  height: 12px;
+  overflow: hidden;
+}
+
+.achievement-progress span {
+  background: linear-gradient(90deg, #157f65, #2f6ecb);
+  display: block;
+  height: 100%;
+  transition: width 420ms var(--ease-out);
+}
+
+.achievement-grid,
+.challenge-grid,
+.reports-layout,
+.profile-layout,
+.investments-layout,
+.categories-layout {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.achievement-card,
+.challenge-card,
+.investment-card,
+.category-card {
+  animation: list-item-in 260ms var(--ease-out) both;
+  display: grid;
+  gap: 10px;
+}
+
+.achievement-card.unlocked {
+  border-left: 4px solid #157f65;
+}
+
+.achievement-card:not(.unlocked) {
+  opacity: 0.74;
+}
+
+.achievement-card h2,
+.report-panel h2,
+.profile-form h2,
+.investment-form h2,
+.category-form h2 {
+  margin: 0;
+}
+
+.achievement-card p,
+.challenge-card span,
+.monthly-row span,
+.investment-card span,
+.category-card small,
+.achievement-empty,
+.report-empty,
+.profile-empty {
+  color: #64748b;
+}
+
+.reports-summary,
+.investments-summary,
+.profile-stats {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.profile-stats {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.reports-summary article {
+  background: #fff;
+  border: 1px solid #dce5ef;
+  border-radius: 8px;
+  border-top: 4px solid #2f6ecb;
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: 10px;
+  padding: 20px;
+}
+
+.reports-summary span,
+.investments-summary span,
+.profile-stats span {
+  color: #64748b;
+  font-weight: 800;
+}
+
+.reports-summary strong,
+.investments-summary strong,
+.profile-stats strong {
+  font-size: 1.55rem;
+}
+
+.bar-row,
+.monthly-row {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.bar-row {
+  grid-template-columns: 120px minmax(0, 1fr) 110px;
+  align-items: center;
+}
+
+.bar-row div {
+  background: #e5edf5;
+  border-radius: 999px;
+  height: 12px;
+  overflow: hidden;
+}
+
+.bar-row i {
+  background: #157f65;
+  display: block;
+  height: 100%;
+}
+
+.profile-form,
+.investment-form,
+.category-form {
+  align-self: start;
+  display: grid;
+  gap: 16px;
+}
+
+.profile-form label,
+.investment-form label,
+.category-form label {
+  color: #334155;
+  display: grid;
+  gap: 8px;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.profile-form input,
+.investment-form input,
+.category-form input {
+  background: #f8fafc;
+  border: 1px solid #cfd9e6;
+  border-radius: 8px;
+  color: #172033;
+  min-height: 46px;
+  min-width: 0;
+  padding: 0 12px;
+  width: 100%;
+}
+
+.investment-list,
+.category-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.category-card {
+  border-left: 4px solid #157f65;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.category-card span {
+  align-items: center;
+  border-radius: 8px;
+  color: #fff;
+  display: flex;
+  font-weight: 900;
+  height: 42px;
+  justify-content: center;
+  width: 42px;
+}
+
+.category-help {
+  background: #fff;
+  border: 1px solid #dce5ef;
+  border-radius: 8px;
+  box-shadow: var(--shadow-soft);
+  grid-column: 1 / -1;
+  padding: 20px;
+}
+
+.category-help h2 {
+  margin: 0 0 8px;
+}
+
+.category-help p {
+  color: #5f6d82;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.achievement-alert,
+.report-alert,
+.profile-alert,
+.investment-alert,
+.category-alert {
+  animation: alert-in 240ms var(--ease-out) both;
+  border-radius: 8px;
+  font-weight: 700;
+  padding: 12px;
+}
+
+.achievement-alert,
+.report-alert,
+.investment-alert,
+.category-alert,
+.profile-alert.error {
+  background: #fbeaea;
+  color: #a82828;
+}
+
+.profile-alert.success {
+  background: #e8f6f0;
+  color: #0e6f4d;
+}
+
+@media (max-width: 768px) {
+  .achievements-header,
+  .reports-header,
+  .profile-header,
+  .investments-header,
+  .categories-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .achievement-grid,
+  .challenge-grid,
+  .reports-layout,
+  .profile-layout,
+  .investments-layout,
+  .categories-layout,
+  .reports-summary,
+  .investments-summary,
+  .profile-stats,
+  .bar-row {
+    grid-template-columns: 1fr;
+  }
+}

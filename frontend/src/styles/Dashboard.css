@@ -1,0 +1,323 @@
+.dashboard-page {
+  animation: page-in 420ms var(--ease-out) both;
+  background:
+    radial-gradient(circle at top left, rgba(47, 110, 203, 0.1), transparent 32rem),
+    linear-gradient(180deg, #eef5f8 0%, #f7fafc 100%);
+  display: grid;
+  gap: 24px;
+  min-height: 100vh;
+  padding: 32px clamp(18px, 4vw, 48px);
+}
+
+.dashboard-hero {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(220, 229, 239, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 16px 38px rgba(18, 32, 56, 0.08);
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+  padding: 22px;
+}
+
+.brand-badge {
+  background: #132238;
+  border-radius: 8px;
+  color: #fff;
+  display: inline-flex;
+  font-weight: 800;
+  padding: 10px 14px;
+}
+
+.dashboard-hero h1 {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1;
+  margin: 18px 0 10px;
+}
+
+.dashboard-hero p,
+.panel-heading p {
+  color: #5f6d82;
+  margin: 0;
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.secondary-button {
+  background: #e8eef6;
+  border: 0;
+  border-radius: 8px;
+  color: #172033;
+  font-weight: 800;
+  min-height: 42px;
+  padding: 0 16px;
+  transition:
+    background-color 180ms var(--ease-out),
+    box-shadow 180ms var(--ease-out),
+    transform 180ms var(--ease-out);
+}
+
+.secondary-button:hover {
+  box-shadow: 0 10px 20px rgba(18, 32, 56, 0.1);
+  transform: translateY(-1px);
+}
+
+.summary-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.summary-grid article,
+.dashboard-card {
+  background: #fff;
+  border: 1px solid #dce5ef;
+  border-radius: 8px;
+  box-shadow: var(--shadow-soft);
+  min-width: 0;
+  transition:
+    border-color 220ms var(--ease-out),
+    box-shadow 220ms var(--ease-out),
+    transform 220ms var(--ease-out);
+}
+
+.summary-grid article:hover,
+.dashboard-card:hover {
+  box-shadow: var(--shadow-lifted);
+  transform: translateY(-2px);
+}
+
+.summary-grid article {
+  animation: list-item-in 280ms var(--ease-out) both;
+  border-top: 4px solid #2f6ecb;
+  display: grid;
+  gap: 10px;
+  padding: 20px;
+}
+
+.summary-grid span {
+  color: #64748b;
+  font-weight: 800;
+}
+
+.summary-grid strong {
+  font-size: 1.55rem;
+}
+
+.dashboard-layout {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 1.1fr);
+  min-width: 0;
+}
+
+.dashboard-card {
+  animation: list-item-in 320ms var(--ease-out) both;
+  padding: 24px;
+}
+
+.recent-card {
+  grid-column: 1 / -1;
+}
+
+.xp-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f3fbf8 100%);
+}
+
+.panel-heading {
+  align-items: flex-start;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.panel-heading h2 {
+  margin: 0 0 6px;
+}
+
+.progress-track {
+  background: #e5edf5;
+  border-radius: 999px;
+  height: 12px;
+  overflow: hidden;
+}
+
+.progress-track span {
+  background: linear-gradient(90deg, #157f65, #2f6ecb);
+  display: block;
+  height: 100%;
+  transition: width 420ms var(--ease-out);
+}
+
+.category-list,
+.transaction-list,
+.dashboard-bar-list,
+.monthly-chart {
+  display: grid;
+  gap: 12px;
+}
+
+.dashboard-bar-row,
+.monthly-chart-row {
+  animation: list-item-in 260ms var(--ease-out) both;
+  display: grid;
+  gap: 8px;
+}
+
+.dashboard-bar-row > div:first-child,
+.monthly-chart-row {
+  min-width: 0;
+}
+
+.dashboard-bar-row > div:first-child {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.dashboard-bar-row span,
+.monthly-chart-row small {
+  color: #64748b;
+}
+
+.dashboard-bar-track,
+.monthly-chart-row div {
+  background: #e5edf5;
+  border-radius: 999px;
+  min-height: 12px;
+  overflow: hidden;
+}
+
+.dashboard-bar-track span {
+  background: linear-gradient(90deg, #157f65, #2f6ecb);
+  display: block;
+  height: 12px;
+  transition: width 420ms var(--ease-out);
+}
+
+.monthly-chart-row div {
+  display: grid;
+  gap: 4px;
+}
+
+.monthly-chart-row div span {
+  border-radius: 999px;
+  display: block;
+  height: 10px;
+  min-width: 6px;
+  transition: width 420ms var(--ease-out);
+}
+
+.income-bar {
+  background: #157f65;
+}
+
+.expense-bar {
+  background: #bd2d2d;
+}
+
+.category-list div {
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #e5edf5;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  transition:
+    background-color 180ms var(--ease-out),
+    border-color 180ms var(--ease-out),
+    transform 180ms var(--ease-out);
+}
+
+.category-list div:hover {
+  background: #f2f7fb;
+  border-color: #d6e1ee;
+  transform: translateX(3px);
+}
+
+.transaction-item {
+  align-items: center;
+  animation: list-item-in 260ms var(--ease-out) both;
+  border-bottom: 1px solid #e7edf5;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  padding: 14px 0;
+  min-width: 0;
+  transition:
+    background-color 180ms var(--ease-out),
+    border-color 180ms var(--ease-out),
+    transform 180ms var(--ease-out);
+}
+
+.transaction-item:hover {
+  background: #f8fafc;
+  border-color: #d8e2ee;
+  transform: translateX(3px);
+}
+
+.transaction-item div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.transaction-item strong,
+.transaction-item span {
+  overflow-wrap: anywhere;
+}
+
+.transaction-item span,
+.empty-state {
+  color: #64748b;
+}
+
+.empty-state {
+  animation: subtle-fade 260ms var(--ease-out) both;
+}
+
+.income-value {
+  color: #0e7c55;
+}
+
+.expense-value {
+  color: #bd2d2d;
+}
+
+.form-alert {
+  animation: alert-in 240ms var(--ease-out) both;
+  border-radius: 8px;
+  font-weight: 700;
+  padding: 12px;
+}
+
+.form-alert.error {
+  background: #fbeaea;
+  color: #a82828;
+}
+
+@media (max-width: 768px) {
+  .dashboard-layout,
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-hero,
+  .panel-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .dashboard-hero {
+    padding: 18px;
+  }
+}
