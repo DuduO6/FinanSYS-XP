@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { createCategory, listCategories } from '../services/categoryService.js'
+import logoImage from '../data/logo.png'
 import '../styles/Categories.css'
 
 const initialForm = { name: '', color: '#157f65', icon: 'tag' }
@@ -46,7 +47,7 @@ export default function Categories() {
     <main className="categories-page">
       <header className="categories-header">
         <div>
-          <span className="categories-badge">FinanSYS XP</span>
+          <img className="page-logo" src={logoImage} alt="FinanSYS XP" />
           <h1>Categorias</h1>
           <p>Crie categorias para organizar seus lançamentos. Elas aparecem no cadastro de transações.</p>
         </div>

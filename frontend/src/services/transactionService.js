@@ -19,8 +19,11 @@ async function request(path, options = {}) {
       data.detail ||
       data.title?.[0] ||
       data.amount?.[0] ||
+      data.target_goal?.[0] ||
+      data.target_investment?.[0] ||
       data.date?.[0] ||
       data.transaction_type?.[0] ||
+      data.non_field_errors?.[0] ||
       'Não foi possível concluir a solicitação.'
 
     throw new Error(message)

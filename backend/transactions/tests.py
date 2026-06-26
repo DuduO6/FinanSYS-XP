@@ -3,6 +3,8 @@ from django.urls import reverse
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase
 
+from goals.models import Goal
+from investments.models import Investment
 from .models import Transaction
 
 
@@ -64,3 +66,114 @@ class TransactionApiTests(APITestCase):
         response = self.client.get(reverse('transaction-list'))
 
         self.assertEqual(response.status_code, 401)
+
+    def test_goal_transaction_updates_goal_progress(self):
+        Transaction.objects.create(
+            user=self.user,
+            title='Salario',
+            transaction_type='income',
+            category='Trabalho',
+            amount='1000.00',
+            date='2026-06-08',
+        )
+        goal = Goal.objects.create(
+            user=self.user,
+            title='Reserva',
+            target_amount='500.00',
+            current_amount='250.00',
+            deadline='2026-12-31',
+        )
+
+        response = self.client.post(
+            reverse('transaction-list'),
+            {
+                'title': 'Aporte reserva',
+                'transaction_type': 'goal',
+                'category': 'Metas',
+                'amount': '250.00',
+                'date': '2026-06-09',
+                'target_goal': goal.id,
+            },
+            format='json',
+        )
+
+        goal.refresh_from_db()
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(goal.current_amount, goal.target_amount)
+        self.assertEqual(goal.status, Goal.GoalStatus.COMPLETED)
+
+    def test_investment_transaction_updates_investment_amount(self):
+        Transaction.objects.create(
+            user=self.user,
+            title='Salario',
+            transaction_type='income',
+            category='Trabalho',
+            amount='1000.00',
+            date='2026-06-08',
+        )
+        investment = Investment.objects.create(
+            user=self.user,
+            name='Tesouro Selic',
+            investment_type='Renda fixa',
+            amount='100.00',
+            expected_return_rate='10.00',
+            start_date='2026-06-08',
+        )
+
+        response = self.client.post(
+            reverse('transaction-list'),
+            {
+                'title': 'Aplicacao',
+                'transaction_type': 'investment',
+                'category': 'Investimentos',
+                'amount': '300.00',
+                'date': '2026-06-09',
+                'target_investment': investment.id,
+            },
+            format='json',
+        )
+
+        investment.refresh_from_db()
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(str(investment.amount), '400.00')
+
+    def test_rejects_outflow_greater_than_available_balance(self):
+        Transaction.objects.create(
+            user=self.user,
+            title='Salario',
+            transaction_type='income',
+            category='Trabalho',
+            amount='1000.00',
+            date='2026-06-08',
+        )
+        Transaction.objects.create(
+            user=self.user,
+            title='Mercado',
+            transaction_type='expense',
+            category='Alimentacao',
+            amount='250.00',
+            date='2026-06-08',
+        )
+        investment = Investment.objects.create(
+            user=self.user,
+            name='Tesouro Selic',
+            investment_type='Renda fixa',
+            amount='0.01',
+            expected_return_rate='10.00',
+            start_date='2026-06-08',
+        )
+
+        response = self.client.post(
+            reverse('transaction-list'),
+            {
+                'title': 'Aplicacao maior que saldo',
+                'transaction_type': 'investment',
+                'category': 'Investimentos',
+                'amount': '800.00',
+                'date': '2026-06-09',
+                'target_investment': investment.id,
+            },
+            format='json',
+        )
+
+        self.assertEqual(response.status_code, 400)

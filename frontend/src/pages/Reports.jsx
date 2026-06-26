@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { getReports } from '../services/reportsService.js'
+import logoImage from '../data/logo.png'
 import '../styles/Reports.css'
 
 function formatCurrency(value) {
@@ -19,7 +20,7 @@ export default function Reports() {
     <main className="reports-page">
       <header className="reports-header">
         <div>
-          <span className="reports-badge">FinanSYS XP</span>
+          <img className="page-logo" src={logoImage} alt="FinanSYS XP" />
           <h1>Relatórios</h1>
           <p>Visualize sua evolução financeira e onde o dinheiro está indo.</p>
         </div>

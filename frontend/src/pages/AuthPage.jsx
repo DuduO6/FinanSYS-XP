@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { login, registerAccount, saveAuthToken } from '../services/authService.js'
+import logoImage from '../data/logo.png'
 import '../styles/AuthPage.css'
 
 const authSchema = z
@@ -79,7 +80,7 @@ export default function AuthPage({ onSubmitAuth }) {
   return (
     <main className="auth-page">
       <section className="auth-hero" aria-labelledby="auth-title">
-        <span className="brand-badge">FinanSYS XP</span>
+        <img className="auth-logo" src={logoImage} alt="FinanSYS XP" />
         <h1 id="auth-title">Controle financeiro com progresso, metas e recompensas.</h1>
         <p>
           Entre para acompanhar receitas, despesas, metas financeiras, XP, níveis e conquistas em uma
@@ -107,35 +108,35 @@ export default function AuthPage({ onSubmitAuth }) {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit(submitForm)} noValidate>
+        <form className="auth-form" onSubmit={handleSubmit(submitForm)} noValidate>
           <div className="form-heading">
-            <h2>{isRegister ? 'Criar conta' : 'Acessar conta'}</h2>
-            <p>{isRegister ? 'Cadastre seus dados para iniciar o controle.' : 'Use e-mail e senha para continuar.'}</p>
+            <h2 className="auth-form-title">{isRegister ? 'Criar conta' : 'Acessar conta'}</h2>
+            <p>{isRegister ? 'Cadastre seus dados para iniciar o controle financeiro.' : 'Use seu e-mail e senha para continuar.'}</p>
           </div>
 
           {isRegister && (
             <label>
-              Nome
-              <input type="text" placeholder="Seu nome" {...register('name')} />
+              <input className="auth-input" type="text" placeholder=" " {...register('name')} />
+              <span>Nome</span>
             </label>
           )}
 
           <label>
-            E-mail
-            <input type="email" placeholder="voce@email.com" {...register('email')} />
+            <input className="auth-input" type="email" placeholder=" " {...register('email')} />
+            <span>E-mail</span>
             {errors.email && <small className="field-error">{errors.email.message}</small>}
           </label>
 
           <label>
-            Senha
-              <input type="password" placeholder="Mínimo de 6 caracteres" {...register('password')} />
+            <input className="auth-input" type="password" placeholder=" " {...register('password')} />
+            <span>Senha</span>
             {errors.password && <small className="field-error">{errors.password.message}</small>}
           </label>
 
           {isRegister && (
             <label>
-              Confirmar senha
-              <input type="password" placeholder="Repita sua senha" {...register('confirmPassword')} />
+              <input className="auth-input" type="password" placeholder=" " {...register('confirmPassword')} />
+              <span>Confirmar senha</span>
               {errors.confirmPassword && <small className="field-error">{errors.confirmPassword.message}</small>}
             </label>
           )}
@@ -146,6 +147,13 @@ export default function AuthPage({ onSubmitAuth }) {
           <button className="primary-button" type="submit" disabled={isSubmitting}>
             {isSubmitting ? 'Enviando...' : isRegister ? 'Criar conta' : 'Entrar'}
           </button>
+
+          <p className="auth-switch">
+            {isRegister ? 'Já tem uma conta?' : 'Ainda não tem conta?'}
+            <button type="button" onClick={() => changeMode(isRegister ? 'login' : 'register')}>
+              {isRegister ? 'Entrar' : 'Criar conta'}
+            </button>
+          </p>
         </form>
       </section>
     </main>

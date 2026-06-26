@@ -24,6 +24,8 @@ describe('Transactions', () => {
       ],
     })
     fetch.mockResolvedValueOnce({ ok: true, json: async () => [{ id: 1, name: 'Trabalho' }] })
+    fetch.mockResolvedValueOnce({ ok: true, json: async () => [] })
+    fetch.mockResolvedValueOnce({ ok: true, json: async () => [] })
 
     render(<Transactions />)
 
@@ -45,6 +47,8 @@ describe('Transactions', () => {
     fetch
       .mockResolvedValueOnce({ ok: true, json: async () => [] })
       .mockResolvedValueOnce({ ok: true, json: async () => [{ id: 1, name: 'Alimentação' }] })
+      .mockResolvedValueOnce({ ok: true, json: async () => [] })
+      .mockResolvedValueOnce({ ok: true, json: async () => [] })
       .mockResolvedValueOnce({
         ok: true,
         json: async () => ({
@@ -56,19 +60,8 @@ describe('Transactions', () => {
           date: '2026-06-08',
         }),
       })
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => [
-          {
-            id: 2,
-            title: 'Mercado',
-            transaction_type: 'expense',
-            category: 'Alimentação',
-            amount: '120.00',
-            date: '2026-06-08',
-          },
-        ],
-      })
+      .mockResolvedValueOnce({ ok: true, json: async () => [] })
+      .mockResolvedValueOnce({ ok: true, json: async () => [] })
 
     render(<Transactions />)
 

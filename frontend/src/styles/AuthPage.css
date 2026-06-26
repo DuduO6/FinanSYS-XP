@@ -15,22 +15,28 @@
   max-width: 680px;
 }
 
-.brand-badge {
-  background: #132238;
-  border-radius: 8px;
-  color: #fff;
-  display: inline-flex;
-  font-weight: 800;
-  padding: 10px 14px;
+.auth-logo {
+  background: transparent;
+  display: block;
+  height: auto;
+  max-width: min(560px, 100%);
+  object-fit: contain;
+  padding: 0;
+  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.28));
   transition:
-    background-color 180ms var(--ease-out),
+    filter 180ms var(--ease-out),
     transform 180ms var(--ease-out);
+}
+
+.auth-logo:hover {
+  filter: drop-shadow(0 22px 40px rgba(0, 0, 0, 0.34));
+  transform: translateY(-1px);
 }
 
 .auth-hero h1 {
   font-size: clamp(2.25rem, 5vw, 4.5rem);
   line-height: 1;
-  margin: 24px 0 18px;
+  margin: 34px 0 18px;
 }
 
 .auth-hero p,
@@ -40,14 +46,14 @@
 }
 
 .auth-card {
-  background: #fff;
+  background: #ffffff;
   border: 1px solid #dce5ef;
-  border-radius: 8px;
+  border-radius: 20px;
   box-shadow: 0 18px 45px rgba(18, 32, 56, 0.12);
   max-width: 100%;
   min-width: 0;
   overflow: hidden;
-  padding: 28px;
+  padding: 20px;
   transition:
     box-shadow 220ms var(--ease-out),
     transform 220ms var(--ease-out);
@@ -90,35 +96,77 @@
   color: #172033;
 }
 
-.auth-card form {
-  display: grid;
-  gap: 18px;
+.auth-form {
+  color: #172033;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
 }
 
-.form-heading h2 {
+.auth-form-title {
+  align-items: center;
+  color: #157f65;
+  display: flex;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: 0;
   margin: 0;
+  padding-left: 30px;
+  position: relative;
+}
+
+.auth-form-title::before,
+.auth-form-title::after {
+  background-color: #157f65;
+  border-radius: 50%;
+  content: "";
+  height: 16px;
+  left: 0;
+  position: absolute;
+  width: 16px;
+}
+
+.auth-form-title::after {
+  animation: pulse 1s linear infinite;
 }
 
 .form-heading p {
+  color: #5f6d82;
+  font-size: 0.92rem;
+  line-height: 1.5;
   margin: 6px 0 0;
 }
 
 .auth-card label {
-  color: #334155;
-  display: grid;
-  gap: 8px;
-  font-size: 0.92rem;
-  font-weight: 700;
+  display: block;
+  position: relative;
 }
 
-.auth-card input {
+.auth-card label span {
+  color: #64748b;
+  cursor: text;
+  font-size: 0.9rem;
+  left: 12px;
+  position: absolute;
+  top: 14px;
+  transition:
+    color 180ms var(--ease-out),
+    font-size 180ms var(--ease-out),
+    font-weight 180ms var(--ease-out),
+    top 180ms var(--ease-out);
+}
+
+.auth-input {
   background: #f8fafc;
   border: 1px solid #cfd9e6;
-  border-radius: 8px;
+  border-radius: 10px;
   color: #172033;
-  min-height: 46px;
+  font-size: 1rem;
+  min-height: 52px;
   min-width: 0;
-  padding: 0 12px;
+  outline: 0;
+  padding: 21px 12px 7px;
   width: 100%;
   transition:
     background-color 180ms var(--ease-out),
@@ -127,15 +175,25 @@
     transform 180ms var(--ease-out);
 }
 
-.auth-card input:focus {
+.auth-input:focus {
   border-color: #157f65;
   outline: 3px solid rgba(21, 127, 101, 0.14);
   transform: translateY(-1px);
 }
 
+.auth-input:not(:placeholder-shown) + span,
+.auth-input:focus + span {
+  color: #157f65;
+  font-size: 0.72rem;
+  font-weight: 800;
+  top: 5px;
+}
+
 .field-error {
   color: #bd2d2d;
+  display: block;
   font-weight: 700;
+  margin-top: 6px;
 }
 
 .form-alert {
@@ -158,8 +216,9 @@
 .primary-button {
   background: #157f65;
   border: 0;
-  border-radius: 8px;
+  border-radius: 10px;
   color: #fff;
+  font-size: 1rem;
   font-weight: 800;
   min-height: 46px;
   transition:
@@ -179,10 +238,50 @@
   opacity: 0.72;
 }
 
+.auth-switch {
+  align-items: center;
+  color: #64748b;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.92rem;
+  gap: 6px;
+  justify-content: center;
+  margin: 0;
+}
+
+.auth-switch button {
+  background: transparent;
+  border: 0;
+  color: #157f65;
+  font: inherit;
+  font-weight: 800;
+  padding: 0;
+}
+
+.auth-switch button:hover {
+  text-decoration: underline;
+}
+
+@keyframes pulse {
+  from {
+    opacity: 1;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+}
+
 @media (max-width: 768px) {
   .auth-page {
     gap: 28px;
     grid-template-columns: 1fr;
     padding: 28px 18px;
+  }
+
+  .auth-logo {
+    max-width: min(460px, 100%);
   }
 }

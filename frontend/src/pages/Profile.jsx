@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getProfile, updateProfile } from '../services/profileService.js'
+import logoImage from '../data/logo.png'
 import '../styles/Profile.css'
 
 export default function Profile() {
@@ -35,7 +36,7 @@ export default function Profile() {
     <main className="profile-page">
       <header className="profile-header">
         <div>
-          <span className="profile-badge">FinanSYS XP</span>
+          <img className="page-logo" src={logoImage} alt="FinanSYS XP" />
           <h1>Perfil</h1>
           <p>Dados da conta e estatísticas pessoais.</p>
         </div>

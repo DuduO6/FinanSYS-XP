@@ -219,6 +219,7 @@
 .challenge-card span,
 .monthly-row span,
 .investment-card span,
+.investment-card small,
 .category-card small,
 .achievement-empty,
 .report-empty,
@@ -232,6 +233,10 @@
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.investments-summary {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
 
 .profile-stats {
@@ -307,6 +312,7 @@
 
 .profile-form input,
 .investment-form input,
+.investment-form select,
 .category-form input {
   background: #f8fafc;
   border: 1px solid #cfd9e6;

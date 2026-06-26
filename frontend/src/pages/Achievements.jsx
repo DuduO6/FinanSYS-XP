@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getGamification } from '../services/gamificationService.js'
+import logoImage from '../data/logo.png'
 import '../styles/Achievements.css'
 
 export default function Achievements() {
@@ -14,7 +15,7 @@ export default function Achievements() {
     <main className="achievements-page">
       <header className="achievements-header">
         <div>
-          <span className="achievements-badge">FinanSYS XP</span>
+          <img className="page-logo" src={logoImage} alt="FinanSYS XP" />
           <h1>Conquistas e desafios</h1>
           <p>Seu progresso financeiro convertido em XP, níveis e recompensas.</p>
         </div>

@@ -110,6 +110,22 @@
   font-size: 1.55rem;
 }
 
+.summary-grid article.summary-balance.positive {
+  border-top-color: #157f65;
+}
+
+.summary-grid article.summary-balance.positive strong {
+  color: #0e7c55;
+}
+
+.summary-grid article.summary-balance.negative {
+  border-top-color: #bd2d2d;
+}
+
+.summary-grid article.summary-balance.negative strong {
+  color: #bd2d2d;
+}
+
 .dashboard-layout {
   display: grid;
   gap: 20px;

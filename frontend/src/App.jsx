@@ -9,7 +9,10 @@ import Reports from './pages/Reports.jsx'
 import Transactions from './pages/Transactions.jsx'
 import { clearAuthToken, getAuthToken } from './services/authService.js'
 import { useState } from 'react'
+import faviconImage from './data/favicon.png'
+import logoImage from './data/logo.png'
 import './styles/App.css'
+import './styles/DarkTheme.css'
 
 const navItems = [
   { id: 'dashboard', label: 'Dashboard', shortLabel: 'DB' },
@@ -72,11 +75,7 @@ export default function App() {
       <aside className="app-sidebar">
         <div className="sidebar-top">
           <div className="sidebar-brand">
-            <span>FX</span>
-            <div>
-              <strong>FinanSYS XP</strong>
-              <small>Finanças gamificadas</small>
-            </div>
+            <img className="sidebar-logo" src={logoImage} alt="FinanSYS XP" />
           </div>
           <button
             className="sidebar-toggle"
@@ -90,11 +89,7 @@ export default function App() {
         </div>
 
         <div className="sidebar-brand collapsed-brand">
-          <span>FX</span>
-          <div>
-            <strong>FinanSYS XP</strong>
-            <small>Finanças gamificadas</small>
-          </div>
+          <img className="sidebar-icon" src={faviconImage} alt="FinanSYS XP" />
         </div>
 
         <nav className="sidebar-nav" aria-label="Navegacao principal">

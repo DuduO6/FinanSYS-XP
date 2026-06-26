@@ -11,7 +11,7 @@ class DashboardView(APIView):
     def get(self, request):
         transactions = Transaction.objects.filter(user=request.user)
         income = sum((transaction.amount for transaction in transactions if transaction.transaction_type == Transaction.TransactionType.INCOME), Decimal('0'))
-        expenses = sum((transaction.amount for transaction in transactions if transaction.transaction_type == Transaction.TransactionType.EXPENSE), Decimal('0'))
+        expenses = sum((transaction.amount for transaction in transactions if transaction.transaction_type != Transaction.TransactionType.INCOME), Decimal('0'))
         expenses_by_category = {}
         monthly_evolution = {}
 

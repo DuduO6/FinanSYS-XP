@@ -6,6 +6,8 @@ class Transaction(models.Model):
     class TransactionType(models.TextChoices):
         INCOME = 'income', 'Receita'
         EXPENSE = 'expense', 'Despesa'
+        GOAL = 'goal', 'Aporte em meta'
+        INVESTMENT = 'investment', 'Investimento'
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='transactions')
     title = models.CharField(max_length=120)
@@ -14,6 +16,8 @@ class Transaction(models.Model):
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     date = models.DateField()
     description = models.TextField(blank=True)
+    target_goal = models.ForeignKey('goals.Goal', on_delete=models.SET_NULL, null=True, blank=True, related_name='transactions')
+    target_investment = models.ForeignKey('investments.Investment', on_delete=models.SET_NULL, null=True, blank=True, related_name='transactions')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

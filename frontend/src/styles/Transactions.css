@@ -215,6 +215,18 @@
   margin: 6px 0 0;
 }
 
+.destination-hint {
+  background: #eef8f4;
+  border: 1px solid #cce8dd;
+  border-radius: 8px;
+  color: #0f624b;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0;
+  padding: 12px;
+}
+
 .form-alert {
   animation: alert-in 240ms var(--ease-out) both;
   border-radius: 8px;
@@ -246,6 +258,7 @@
 
 .filter-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 

@@ -32,6 +32,10 @@ describe('Dashboard', () => {
           gamification: { xp: 40, level: 1, next_level_xp: 200, progress: 20 },
         }),
       })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => [{ id: 1, name: 'Alimentação', color: '#157f65' }],
+      })
 
     render(<Dashboard onNavigate={vi.fn()} onLogout={vi.fn()} />)
 
@@ -55,6 +59,10 @@ describe('Dashboard', () => {
           recent_transactions: [],
           gamification: { xp: 0, level: 1, next_level_xp: 200, progress: 0 },
         }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => [],
       })
 
     render(<Dashboard onNavigate={vi.fn()} onLogout={vi.fn()} />)

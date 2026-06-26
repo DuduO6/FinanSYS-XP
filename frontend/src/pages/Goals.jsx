@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { createGoal, listGoals, updateGoal } from '../services/goalService.js'
+import logoImage from '../data/logo.png'
 import '../styles/Goals.css'
 
 const initialForm = {
@@ -130,7 +131,7 @@ export default function Goals() {
     <main className="goals-page">
       <header className="goals-header">
         <div>
-          <span className="goals-badge">FinanSYS XP</span>
+          <img className="page-logo" src={logoImage} alt="FinanSYS XP" />
           <h1>Metas financeiras</h1>
           <p>Planeje reservas, compras e objetivos com acompanhamento de progresso.</p>
         </div>

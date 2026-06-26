@@ -15,7 +15,7 @@ async function request(path, options = {}) {
   const data = await response.json().catch(() => ({}))
 
   if (!response.ok) {
-    throw new Error(data.detail || data.name?.[0] || data.amount?.[0] || 'Não foi possível concluir a solicitação.')
+    throw new Error(data.detail || data.name?.[0] || data.amount?.[0] || data.non_field_errors?.[0] || 'Não foi possível concluir a solicitação.')
   }
 
   return data
