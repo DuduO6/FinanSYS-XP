@@ -3,6 +3,7 @@ from django.db.models import Count, Q, Sum
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from .football_legends import ensure_football_legends_seeded
 from transactions.models import Transaction
 from .utils import build_gamification_stats, build_next_challenges
 
@@ -50,6 +51,7 @@ class GamificationView(APIView):
 
 class RankingView(APIView):
     def get(self, request):
+        ensure_football_legends_seeded()
         users = User.objects.annotate(
             transactions_total=Count('transactions', distinct=True),
             goals_total=Count('goals', distinct=True),

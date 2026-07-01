@@ -171,7 +171,7 @@
   animation: list-item-in 260ms var(--ease-out) both;
   display: grid;
   gap: 16px;
-  grid-template-columns: auto auto minmax(160px, 1fr) minmax(80px, auto) minmax(160px, 0.7fr);
+  grid-template-columns: auto auto minmax(180px, 1fr) minmax(150px, 170px) minmax(180px, 220px);
   padding: 16px;
 }
 
@@ -193,11 +193,20 @@
   min-width: 0;
 }
 
+.ranking-level,
+.ranking-xp {
+  justify-items: end;
+  text-align: right;
+}
+
 .ranking-person strong,
-.ranking-person span {
+.ranking-person span,
+.ranking-level span,
+.ranking-xp span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  width: 100%;
 }
 
 .ranking-level strong {
@@ -246,5 +255,7 @@
   .ranking-level,
   .ranking-xp {
     grid-column: 1 / -1;
+    justify-items: start;
+    text-align: left;
   }
 }

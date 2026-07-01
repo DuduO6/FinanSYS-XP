@@ -10,7 +10,6 @@ import Reports from './pages/Reports.jsx'
 import Transactions from './pages/Transactions.jsx'
 import { clearAuthToken, getAuthToken } from './services/authService.js'
 import { useState } from 'react'
-import faviconImage from './data/favicon.png'
 import logoImage from './data/logo.png'
 import './styles/App.css'
 import './styles/DarkTheme.css'
@@ -27,20 +26,14 @@ const navItems = [
   { id: 'profile', label: 'Perfil', shortLabel: 'PF' },
 ]
 
-function isMobileViewport() {
-  return typeof window !== 'undefined' && window.matchMedia('(max-width: 860px)').matches
-}
-
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(Boolean(getAuthToken()))
   const [activePage, setActivePage] = useState('dashboard')
-  const [isSidebarOpen, setIsSidebarOpen] = useState(() => !isMobileViewport())
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   function selectPage(pageId) {
     setActivePage(pageId)
-    if (isMobileViewport()) {
-      setIsSidebarOpen(false)
-    }
+    setIsSidebarOpen(false)
   }
 
   function logout() {
@@ -91,15 +84,17 @@ export default function App() {
   return (
     <div className={isSidebarOpen ? 'authenticated-shell' : 'authenticated-shell sidebar-collapsed'}>
       <button
-        className="mobile-menu-button"
+        className="mobile-menu-button background"
         type="button"
         aria-label="Abrir menu"
         aria-expanded={isSidebarOpen}
-        onClick={() => setIsSidebarOpen(true)}
+        onClick={() => setIsSidebarOpen((current) => !current)}
       >
-        <span />
-        <span />
-        <span />
+        <span className="menu__icon" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </span>
       </button>
       <button
         className="mobile-menu-backdrop"
@@ -113,18 +108,18 @@ export default function App() {
             <img className="sidebar-logo" src={logoImage} alt="FinanSYS XP" />
           </div>
           <button
-            className="sidebar-toggle"
+            className="sidebar-toggle background"
             type="button"
             aria-label={isSidebarOpen ? 'Fechar menu lateral' : 'Abrir menu lateral'}
             aria-expanded={isSidebarOpen}
             onClick={() => setIsSidebarOpen((current) => !current)}
           >
-            {isSidebarOpen ? '<' : '>'}
+            <span className="menu__icon" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </span>
           </button>
-        </div>
-
-        <div className="sidebar-brand collapsed-brand">
-          <img className="sidebar-icon" src={faviconImage} alt="FinanSYS XP" />
         </div>
 
         <nav className="sidebar-nav" aria-label="Navegacao principal">

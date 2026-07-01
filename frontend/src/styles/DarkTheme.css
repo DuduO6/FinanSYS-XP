@@ -317,6 +317,22 @@ button:disabled::after {
   --button-hover-fg: #04110d;
 }
 
+.background,
+.sidebar-toggle.background {
+  background: rgba(74, 74, 74, 0.39) !important;
+  border: 1px solid #1a1a1a;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.background:hover,
+.sidebar-toggle.background:hover {
+  background: rgba(74, 74, 74, 0.48) !important;
+}
+
+.menu__icon span {
+  background-color: rgb(0, 122, 255);
+}
+
 .auth-switch button {
   --button-bg: transparent;
   --button-fg: var(--color-brand);
