@@ -18,3 +18,20 @@ export async function getGamification() {
 
   return data
 }
+
+export async function listRanking() {
+  const token = getAuthToken()
+  const response = await fetch(`${API_URL}/gamification/ranking/`, {
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Token ${token}` } : {}),
+    },
+  })
+  const data = await response.json().catch(() => ({}))
+
+  if (!response.ok) {
+    throw new Error(data.detail || 'Não foi possível carregar o ranking.')
+  }
+
+  return data
+}

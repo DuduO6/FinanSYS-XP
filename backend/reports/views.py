@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from transactions.models import Transaction
+from transactions.utils import is_investment_category
 
 
 class ReportsView(APIView):
@@ -15,13 +16,14 @@ class ReportsView(APIView):
         monthly = {}
 
         for transaction in transactions:
+            is_investment = transaction.transaction_type == Transaction.TransactionType.INVESTMENT or is_investment_category(transaction.category)
             month = transaction.date.strftime('%Y-%m')
             monthly.setdefault(month, {'income': Decimal('0'), 'expenses': Decimal('0')})
 
             if transaction.transaction_type == Transaction.TransactionType.INCOME:
                 income += transaction.amount
                 monthly[month]['income'] += transaction.amount
-            else:
+            elif not is_investment:
                 expenses += transaction.amount
                 monthly[month]['expenses'] += transaction.amount
                 categories[transaction.category] = categories.get(transaction.category, Decimal('0')) + transaction.amount

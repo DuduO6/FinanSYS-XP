@@ -89,7 +89,7 @@ class InvestmentSerializer(serializers.ModelSerializer):
                 user=investment.user,
                 title=f'Aplicacao inicial: {investment.name}',
                 transaction_type=Transaction.TransactionType.INVESTMENT,
-                category='Investimentos',
+                category='Outros',
                 amount=initial_amount,
                 date=investment.start_date,
                 description='Aplicacao criada pela carteira de investimentos.',

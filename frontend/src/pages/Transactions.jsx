@@ -17,7 +17,7 @@ const initialForm = {
   target_investment: '',
 }
 
-const defaultCategories = ['Alimentação', 'Moradia', 'Transporte', 'Saúde', 'Educação', 'Lazer', 'Trabalho', 'Freelance', 'Investimentos', 'Outros']
+const defaultCategories = ['Alimentação', 'Moradia', 'Transporte', 'Saúde', 'Educação', 'Lazer', 'Trabalho', 'Freelance', 'Outros']
 const transactionTypeLabels = {
   income: 'Receita',
   expense: 'Despesa',
@@ -30,6 +30,18 @@ function formatCurrency(value) {
     style: 'currency',
     currency: 'BRL',
   }).format(Number(value))
+}
+
+function isInvestmentCategory(category) {
+  return String(category || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim()
+    .toLowerCase() === 'investimentos'
+}
+
+function withoutInvestmentCategory(categories) {
+  return categories.filter((category) => !isInvestmentCategory(category))
 }
 
 export default function Transactions() {
@@ -49,10 +61,11 @@ export default function Transactions() {
     return transactions.reduce(
       (totals, transaction) => {
         const amount = Number(transaction.amount)
+        const isInvestment = transaction.transaction_type === 'investment' || isInvestmentCategory(transaction.category)
 
         if (transaction.transaction_type === 'income') {
           totals.income += amount
-        } else {
+        } else if (!isInvestment) {
           totals.expenses += amount
         }
 
@@ -70,9 +83,10 @@ export default function Transactions() {
   useEffect(() => {
     listCategories()
       .then((data) => {
-        setCategories(data.map((category) => category.name))
+        const visibleCategories = data.filter((category) => !isInvestmentCategory(category.name))
+        setCategories(visibleCategories.map((category) => category.name))
         setCategoryColors(
-          data.reduce((colors, category) => {
+          visibleCategories.reduce((colors, category) => {
             colors[category.name] = category.color
             return colors
           }, {}),
@@ -92,6 +106,13 @@ export default function Transactions() {
       .then(([goalsData, investmentsData]) => {
         setGoals(goalsData)
         setInvestments(investmentsData)
+        setForm((current) => {
+          if (current.transaction_type !== 'investment' || current.target_investment || investmentsData.length === 0) {
+            return current
+          }
+
+          return { ...current, target_investment: String(investmentsData[0].id) }
+        })
       })
       .catch(() => {
         setGoals([])
@@ -124,19 +145,25 @@ export default function Transactions() {
           nextForm.category = 'Metas'
           nextForm.target_investment = ''
         } else if (value === 'investment') {
-          nextForm.category = 'Investimentos'
+          nextForm.category = isInvestmentCategory(current.category) ? 'Outros' : current.category
           nextForm.target_goal = ''
+          nextForm.target_investment = investments.length > 0 ? String(investments[0].id) : ''
         } else {
           nextForm.target_goal = ''
           nextForm.target_investment = ''
         }
       }
 
+      if (name === 'category' && isInvestmentCategory(value) && current.transaction_type === 'expense') {
+        nextForm.transaction_type = 'investment'
+        nextForm.target_goal = ''
+      }
+
       return nextForm
     })
   }
 
-  const categoryOptions = categories.length > 0 ? categories : defaultCategories
+  const categoryOptions = withoutInvestmentCategory(categories.length > 0 ? categories : defaultCategories)
   const getCategoryColor = (category, transactionType = 'expense') => {
     return categoryColors[category] || (transactionType === 'income' ? '#34d399' : '#ef4444')
   }
@@ -148,10 +175,14 @@ export default function Transactions() {
     setSuccessMessage('')
 
     try {
+      const transactionType = isInvestmentCategory(form.category) && form.transaction_type === 'expense'
+        ? 'investment'
+        : form.transaction_type
       const payload = {
         ...form,
-        target_goal: form.transaction_type === 'goal' ? form.target_goal : null,
-        target_investment: form.transaction_type === 'investment' ? form.target_investment : null,
+        transaction_type: transactionType,
+        target_goal: transactionType === 'goal' ? form.target_goal : null,
+        target_investment: transactionType === 'investment' && form.target_investment ? form.target_investment : null,
       }
       const createdTransaction = await createTransaction(payload)
       setForm(initialForm)
@@ -248,11 +279,10 @@ export default function Transactions() {
             </label>
           )}
 
-          {form.transaction_type === 'investment' && (
+          {form.transaction_type === 'investment' && investments.length > 0 && (
             <label>
-              Investimento
-              <select name="target_investment" value={form.target_investment} onChange={updateField} required>
-                <option value="">Selecione um investimento</option>
+              Carteira de investimento
+              <select name="target_investment" value={form.target_investment} onChange={updateField}>
                 {investments.map((investment) => (
                   <option key={investment.id} value={investment.id}>
                     {investment.name} - {investment.investment_type}

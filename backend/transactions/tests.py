@@ -125,7 +125,7 @@ class TransactionApiTests(APITestCase):
             {
                 'title': 'Aplicacao',
                 'transaction_type': 'investment',
-                'category': 'Investimentos',
+                'category': 'Outros',
                 'amount': '300.00',
                 'date': '2026-06-09',
                 'target_investment': investment.id,
@@ -136,6 +136,33 @@ class TransactionApiTests(APITestCase):
         investment.refresh_from_db()
         self.assertEqual(response.status_code, 201)
         self.assertEqual(str(investment.amount), '400.00')
+
+    def test_investment_category_transaction_is_saved_as_investment(self):
+        Transaction.objects.create(
+            user=self.user,
+            title='Salario',
+            transaction_type='income',
+            category='Trabalho',
+            amount='1000.00',
+            date='2026-06-08',
+        )
+
+        response = self.client.post(
+            reverse('transaction-list'),
+            {
+                'title': 'Aplicacao avulsa',
+                'transaction_type': 'expense',
+                'category': 'Investimentos',
+                'amount': '300.00',
+                'date': '2026-06-09',
+            },
+            format='json',
+        )
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.data['transaction_type'], Transaction.TransactionType.INVESTMENT)
+        self.assertEqual(response.data['category'], 'Outros')
+        self.assertIsNone(response.data['target_investment'])
 
     def test_rejects_outflow_greater_than_available_balance(self):
         Transaction.objects.create(
@@ -168,7 +195,7 @@ class TransactionApiTests(APITestCase):
             {
                 'title': 'Aplicacao maior que saldo',
                 'transaction_type': 'investment',
-                'category': 'Investimentos',
+                'category': 'Outros',
                 'amount': '800.00',
                 'date': '2026-06-09',
                 'target_investment': investment.id,

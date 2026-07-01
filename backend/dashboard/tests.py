@@ -57,7 +57,7 @@ class DashboardApiTests(APITestCase):
         self.assertEqual(response.data['summary']['balance'], Decimal('2750.00'))
         self.assertEqual(response.data['expenses_by_category'], [{'category': 'Alimentacao', 'amount': Decimal('250.00')}])
         self.assertEqual(len(response.data['recent_transactions']), 2)
-        self.assertEqual(response.data['gamification']['xp'], 40)
+        self.assertEqual(response.data['gamification']['xp'], 20)
 
     def test_dashboard_requires_authentication(self):
         self.client.credentials()

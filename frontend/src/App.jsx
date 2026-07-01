@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard.jsx'
 import Goals from './pages/Goals.jsx'
 import Investments from './pages/Investments.jsx'
 import Profile from './pages/Profile.jsx'
+import Rankings from './pages/Rankings.jsx'
 import Reports from './pages/Reports.jsx'
 import Transactions from './pages/Transactions.jsx'
 import { clearAuthToken, getAuthToken } from './services/authService.js'
@@ -20,20 +21,33 @@ const navItems = [
   { id: 'goals', label: 'Metas', shortLabel: 'MT' },
   { id: 'reports', label: 'Relatórios', shortLabel: 'RL' },
   { id: 'achievements', label: 'Conquistas', shortLabel: 'CQ' },
+  { id: 'rankings', label: 'Rankings', shortLabel: 'RK' },
   { id: 'investments', label: 'Investimentos', shortLabel: 'IN' },
   { id: 'categories', label: 'Categorias', shortLabel: 'CT' },
   { id: 'profile', label: 'Perfil', shortLabel: 'PF' },
 ]
 
+function isMobileViewport() {
+  return typeof window !== 'undefined' && window.matchMedia('(max-width: 860px)').matches
+}
+
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(Boolean(getAuthToken()))
   const [activePage, setActivePage] = useState('dashboard')
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(() => !isMobileViewport())
+
+  function selectPage(pageId) {
+    setActivePage(pageId)
+    if (isMobileViewport()) {
+      setIsSidebarOpen(false)
+    }
+  }
 
   function logout() {
     clearAuthToken()
     setIsAuthenticated(false)
     setActivePage('dashboard')
+    setIsSidebarOpen(false)
   }
 
   if (!isAuthenticated) {
@@ -58,6 +72,10 @@ export default function App() {
     page = <Reports />
   }
 
+  if (activePage === 'rankings') {
+    page = <Rankings />
+  }
+
   if (activePage === 'categories') {
     page = <Categories />
   }
@@ -67,11 +85,28 @@ export default function App() {
   }
 
   if (activePage === 'profile') {
-    page = <Profile />
+    page = <Profile onLogout={logout} />
   }
 
   return (
     <div className={isSidebarOpen ? 'authenticated-shell' : 'authenticated-shell sidebar-collapsed'}>
+      <button
+        className="mobile-menu-button"
+        type="button"
+        aria-label="Abrir menu"
+        aria-expanded={isSidebarOpen}
+        onClick={() => setIsSidebarOpen(true)}
+      >
+        <span />
+        <span />
+        <span />
+      </button>
+      <button
+        className="mobile-menu-backdrop"
+        type="button"
+        aria-label="Fechar menu"
+        onClick={() => setIsSidebarOpen(false)}
+      />
       <aside className="app-sidebar">
         <div className="sidebar-top">
           <div className="sidebar-brand">
@@ -98,7 +133,7 @@ export default function App() {
               className={activePage === item.id ? 'active' : ''}
               key={item.id}
               type="button"
-              onClick={() => setActivePage(item.id)}
+              onClick={() => selectPage(item.id)}
             >
               <span className="nav-short">{item.shortLabel}</span>
               <span className="nav-label">{item.label}</span>

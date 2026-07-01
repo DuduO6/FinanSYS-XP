@@ -5,6 +5,7 @@ from rest_framework import serializers
 
 from goals.models import Goal
 from .models import Transaction
+from .utils import is_investment_category
 
 
 class TransactionSerializer(serializers.ModelSerializer):
@@ -36,8 +37,14 @@ class TransactionSerializer(serializers.ModelSerializer):
         user = getattr(request, 'user', None)
         transaction_type = attrs.get('transaction_type', getattr(self.instance, 'transaction_type', None))
         amount = attrs.get('amount', getattr(self.instance, 'amount', Decimal('0')))
+        category = attrs.get('category', getattr(self.instance, 'category', ''))
         target_goal = attrs.get('target_goal')
         target_investment = attrs.get('target_investment')
+
+        if is_investment_category(category) and transaction_type == Transaction.TransactionType.EXPENSE:
+            transaction_type = Transaction.TransactionType.INVESTMENT
+            attrs['transaction_type'] = transaction_type
+            attrs['category'] = 'Outros'
 
         if transaction_type == Transaction.TransactionType.GOAL:
             if not target_goal:
@@ -50,10 +57,7 @@ class TransactionSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({'amount': 'O aporte ultrapassa o valor restante da meta.'})
 
         if transaction_type == Transaction.TransactionType.INVESTMENT:
-            if not target_investment:
-                raise serializers.ValidationError({'target_investment': 'Selecione um investimento para receber o aporte.'})
-
-            if target_investment.user != user:
+            if target_investment and target_investment.user != user:
                 raise serializers.ValidationError({'target_investment': 'Investimento invalido para este usuario.'})
 
         if transaction_type == Transaction.TransactionType.GOAL:

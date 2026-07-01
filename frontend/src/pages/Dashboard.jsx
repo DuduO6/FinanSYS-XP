@@ -89,7 +89,7 @@ export default function Dashboard() {
   }
 
   const summary = dashboard?.summary || { income: 0, expenses: 0, balance: 0 }
-  const gamification = dashboard?.gamification || { xp: 0, level: 1, progress: 0, next_level_xp: 200 }
+  const gamification = dashboard?.gamification || { xp: 0, level: 1, level_class: 'Iniciante Financeiro', progress: 0, next_level_xp: 200 }
   const isPositiveBalance = Number(summary.balance) >= 0
   const expensesByCategory = dashboard?.expenses_by_category || []
   const recentTransactions = dashboard?.recent_transactions || []
@@ -140,7 +140,7 @@ export default function Dashboard() {
           <div className="panel-heading">
             <div>
               <h2>Nível {gamification.level}</h2>
-              <p>{gamification.xp} XP acumulados · progresso até o próximo nível</p>
+              <p>{gamification.level_class} · {gamification.xp} XP acumulados · progresso até o próximo nível</p>
             </div>
             <strong>{gamification.progress}%</strong>
           </div>

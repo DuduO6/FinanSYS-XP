@@ -13,7 +13,6 @@ const defaultCategoryNames = new Set([
   'Lazer',
   'Trabalho',
   'Freelance',
-  'Investimentos',
   'Outros',
 ])
 

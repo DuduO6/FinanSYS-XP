@@ -23,7 +23,9 @@
   --shadow-lifted: 0 24px 58px rgba(0, 0, 0, 0.34);
 }
 
-body {
+html,
+body,
+#root {
   background: var(--color-bg);
   color: var(--color-text);
 }
@@ -360,6 +362,7 @@ button.active:hover .nav-label {
 .transactions-page,
 .goals-page,
 .achievements-page,
+.rankings-page,
 .reports-page,
 .profile-page,
 .investments-page,
@@ -376,6 +379,7 @@ button.active:hover .nav-label {
 .transactions-header,
 .goals-header,
 .achievements-header,
+.rankings-header,
 .reports-header,
 .profile-header,
 .investments-header,
@@ -391,6 +395,10 @@ button.active:hover .nav-label {
 .xp-panel,
 .achievement-card,
 .challenge-card,
+.rankings-highlight,
+.rankings-summary article,
+.podium-card,
+.ranking-row,
 .report-panel,
 .reports-summary article,
 .profile-form,
@@ -419,6 +427,10 @@ button.active:hover .nav-label {
 .xp-panel:hover,
 .achievement-card:hover,
 .challenge-card:hover,
+.rankings-highlight:hover,
+.rankings-summary article:hover,
+.podium-card:hover,
+.ranking-row:hover,
 .report-panel:hover,
 .reports-summary article:hover,
 .profile-form:hover,
@@ -442,6 +454,10 @@ button.active:hover .nav-label {
 .xp-panel,
 .achievement-card,
 .challenge-card,
+.rankings-highlight,
+.rankings-summary article,
+.podium-card,
+.ranking-row,
 .report-panel,
 .profile-form,
 .investment-form,
@@ -468,6 +484,7 @@ button.active:hover .nav-label {
 .transactions-header h1,
 .goals-header h1,
 .achievements-header h1,
+.rankings-header h1,
 .reports-header h1,
 .profile-header h1,
 .investments-header h1,
@@ -477,6 +494,7 @@ button.active:hover .nav-label {
 .panel-heading h2,
 .xp-panel h2,
 .achievement-card h2,
+.podium-card h2,
 .challenge-card h2,
 .report-panel h2,
 .profile-form h2,
@@ -498,11 +516,16 @@ button.active:hover .nav-label {
 .goal-card p,
 .panel-heading p,
 .achievements-header p,
+.rankings-header p,
 .reports-header p,
 .profile-header p,
 .investments-header p,
 .categories-header p,
 .achievement-card p,
+.podium-card p,
+.ranking-person span,
+.ranking-level span,
+.ranking-xp span,
 .challenge-card span,
 .monthly-row span,
 .investment-card span,
@@ -512,6 +535,7 @@ button.active:hover .nav-label {
 .summary-grid span,
 .goals-summary span,
 .reports-summary span,
+.rankings-summary span,
 .investments-summary span,
 .profile-stats span,
 .dashboard-bar-row span,
@@ -529,6 +553,9 @@ button.active:hover .nav-label {
 .summary-grid strong,
 .goals-summary strong,
 .reports-summary strong,
+.rankings-summary strong,
+.rankings-highlight strong,
+.ranking-level strong,
 .investments-summary strong,
 .profile-stats strong,
 .xp-panel strong {
@@ -538,6 +565,11 @@ button.active:hover .nav-label {
 .auth-form-title,
 .goal-card-header span,
 .goal-card-header > strong {
+  color: var(--color-brand);
+}
+
+.podium-position,
+.ranking-position {
   color: var(--color-brand);
 }
 
@@ -634,6 +666,7 @@ button.active:hover .nav-label {
 .progress-track,
 .goal-progress-track,
 .achievement-progress,
+.ranking-progress,
 .dashboard-bar-track,
 .monthly-chart-row div,
 .bar-row div {
@@ -643,6 +676,7 @@ button.active:hover .nav-label {
 .progress-track span,
 .goal-progress-track span,
 .achievement-progress span,
+.ranking-progress span,
 .dashboard-bar-track span {
   background: linear-gradient(90deg, var(--color-brand), var(--color-blue));
 }
@@ -651,6 +685,20 @@ button.active:hover .nav-label {
   background:
     radial-gradient(circle at top right, rgba(32, 180, 134, 0.16), transparent 16rem),
     rgba(16, 27, 43, 0.92);
+}
+
+.rankings-highlight,
+.ranking-row.current-user,
+.podium-card.position-1 {
+  background:
+    radial-gradient(circle at top right, rgba(32, 180, 134, 0.16), transparent 16rem),
+    rgba(16, 27, 43, 0.92);
+}
+
+.ranking-avatar {
+  background: rgba(32, 180, 134, 0.14);
+  border-color: rgba(32, 180, 134, 0.35);
+  color: #d7ffee;
 }
 
 .destination-hint {
@@ -908,6 +956,7 @@ textarea:disabled {
   border-radius: 9px 9px 3px 3px;
   display: block;
   min-height: 8px;
+  max-inline-size: 100vw;
   width: 100%;
 }
 
@@ -1038,4 +1087,381 @@ textarea:disabled {
   display: grid;
   gap: 6px;
   min-width: 0;
+}
+
+.auth-page,
+.dashboard-page,
+.transactions-page,
+.goals-page,
+.achievements-page,
+.rankings-page,
+.reports-page,
+.profile-page,
+.investments-page,
+.categories-page {
+  gap: var(--layout-gap);
+  max-width: 100%;
+  overflow-x: clip;
+  padding: var(--page-block-padding) var(--page-inline-padding);
+  width: 100%;
+}
+
+.authenticated-shell,
+.authenticated-content {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.auth-card,
+.dashboard-hero,
+.transactions-header,
+.goals-header,
+.achievements-header,
+.rankings-header,
+.reports-header,
+.profile-header,
+.investments-header,
+.categories-header,
+.summary-grid article,
+.dashboard-card,
+.transaction-form,
+.transaction-panel,
+.goals-summary article,
+.goal-form,
+.goals-panel,
+.goal-card,
+.xp-panel,
+.achievement-card,
+.challenge-card,
+.rankings-highlight,
+.rankings-summary article,
+.podium-card,
+.ranking-row,
+.report-panel,
+.reports-summary article,
+.profile-form,
+.profile-stats article,
+.investment-form,
+.investment-card,
+.investments-summary article,
+.category-form,
+.category-card,
+.category-help {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.dashboard-hero,
+.transactions-header,
+.goals-header,
+.achievements-header,
+.rankings-header,
+.reports-header,
+.profile-header,
+.investments-header,
+.categories-header {
+  padding: var(--card-padding);
+}
+
+.dashboard-hero h1,
+.transactions-header h1,
+.goals-header h1,
+.achievements-header h1,
+.rankings-header h1,
+.reports-header h1,
+.profile-header h1,
+.investments-header h1,
+.categories-header h1 {
+  font-size: var(--fluid-title);
+  overflow-wrap: anywhere;
+}
+
+.dashboard-actions,
+.goals-actions,
+.achievements-actions,
+.reports-actions,
+.profile-actions,
+.investments-actions,
+.categories-actions,
+.filter-buttons,
+.goal-filters {
+  max-width: 100%;
+}
+
+.summary-grid,
+.goals-summary,
+.reports-summary,
+.rankings-summary,
+.investments-summary,
+.profile-stats {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+}
+
+.dashboard-layout,
+.transactions-layout,
+.goals-layout,
+.reports-layout,
+.profile-layout,
+.investments-layout,
+.categories-layout,
+.achievement-grid,
+.challenge-grid,
+.ranking-podium {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.transaction-form,
+.transaction-panel,
+.goal-form,
+.goals-panel,
+.dashboard-card,
+.xp-panel,
+.achievement-card,
+.challenge-card,
+.rankings-highlight,
+.rankings-summary article,
+.podium-card,
+.ranking-row,
+.report-panel,
+.profile-form,
+.profile-stats article,
+.investment-form,
+.investment-card,
+.investments-summary article,
+.category-form,
+.category-card,
+.category-help {
+  padding: var(--card-padding);
+}
+
+.form-row,
+.goal-form-row {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+}
+
+.transaction-item,
+.goal-card-header,
+.goal-amounts,
+.xp-panel div:first-child,
+.ranking-row,
+.category-card {
+  min-width: 0;
+}
+
+.monthly-chart {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 7rem), 1fr));
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.monthly-chart-row,
+.dashboard-bar-row,
+.bar-row {
+  min-width: 0;
+}
+
+.transaction-item strong,
+.transaction-item span,
+.goal-card-header h3,
+.goal-card-header > strong,
+.goal-amounts,
+.bar-row,
+.monthly-row,
+.category-card strong,
+.investment-card strong {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 900px) {
+  .auth-page {
+    align-items: stretch;
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .auth-hero {
+    max-width: 100%;
+  }
+
+  .auth-logo {
+    margin-inline: auto;
+    max-height: min(28vh, 15rem);
+    max-height: min(28dvh, 15rem);
+    max-width: min(80%, 28rem);
+  }
+
+  .dashboard-hero,
+  .transactions-header,
+  .goals-header,
+  .achievements-header,
+  .rankings-header,
+  .reports-header,
+  .profile-header,
+  .investments-header,
+  .categories-header,
+  .panel-heading,
+  .goals-panel-heading.with-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .dashboard-balance-pill {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .dashboard-actions,
+  .goals-actions,
+  .achievements-actions,
+  .reports-actions,
+  .profile-actions,
+  .investments-actions,
+  .categories-actions,
+  .filter-buttons,
+  .goal-filters {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  :root {
+    --page-inline-padding: 4%;
+    --page-block-padding: 1rem;
+    --card-padding: 1rem;
+    --layout-gap: 0.875rem;
+  }
+
+  .auth-page,
+  .dashboard-page,
+  .transactions-page,
+  .goals-page,
+  .achievements-page,
+  .rankings-page,
+  .reports-page,
+  .profile-page,
+  .investments-page,
+  .categories-page {
+    min-height: auto;
+    width: 100%;
+  }
+
+  .auth-page {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    padding-inline: 4%;
+  }
+
+  .auth-page > * {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .auth-logo {
+    max-height: 10rem;
+    max-width: min(84%, 22rem);
+  }
+
+  .auth-card {
+    padding: 1rem;
+  }
+
+  .auth-hero h1 {
+    font-size: clamp(1.6rem, 8.8vw, 2.35rem);
+    line-height: 1.15;
+  }
+
+  .brand-badge,
+  .goals-badge,
+  .achievements-badge,
+  .reports-badge,
+  .profile-badge,
+  .investments-badge,
+  .categories-badge {
+    align-self: flex-start;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .primary-button,
+  .secondary-button,
+  .goals-primary-button,
+  .goals-secondary-button,
+  .filter-buttons button,
+  .goal-filters button,
+  .achievements-actions button,
+  .reports-actions button,
+  .profile-actions button,
+  .investments-actions button,
+  .categories-actions button,
+  .profile-form button,
+  .investment-form button,
+  .category-form button {
+    width: 100%;
+  }
+
+  .dashboard-actions,
+  .goals-actions,
+  .achievements-actions,
+  .reports-actions,
+  .profile-actions,
+  .investments-actions,
+  .categories-actions,
+  .filter-buttons,
+  .goal-filters {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .transaction-item,
+  .goal-card-header,
+  .goal-amounts,
+  .xp-panel div:first-child {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .goal-update-row,
+  .bar-row,
+  .category-card {
+    grid-template-columns: 1fr;
+  }
+
+  .monthly-chart,
+  .monthly-chart-row .monthly-bars {
+    min-height: auto;
+  }
+
+  .monthly-chart-row {
+    min-height: 0;
+  }
+
+  .category-card span {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+}
+
+@media (max-width: 380px) {
+  :root {
+    --page-inline-padding: 3.75%;
+    --card-padding: 0.875rem;
+  }
+
+  .auth-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-grid strong,
+  .goals-summary strong,
+  .reports-summary strong,
+  .rankings-summary strong,
+  .investments-summary strong,
+  .profile-stats strong,
+  .xp-panel strong {
+    font-size: clamp(1.15rem, 8vw, 1.55rem);
+  }
 }

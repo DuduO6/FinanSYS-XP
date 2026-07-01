@@ -18,6 +18,7 @@ class ReportsApiTests(APITestCase):
         self.client.credentials(HTTP_AUTHORIZATION=f'Token {token.key}')
         Transaction.objects.create(user=user, title='Salario', transaction_type='income', category='Trabalho', amount='3000.00', date='2026-06-09')
         Transaction.objects.create(user=user, title='Mercado', transaction_type='expense', category='Alimentacao', amount='300.00', date='2026-06-09')
+        Transaction.objects.create(user=user, title='Aplicacao', transaction_type='investment', category='Outros', amount='500.00', date='2026-06-09')
 
         response = self.client.get(reverse('reports-summary'))
 

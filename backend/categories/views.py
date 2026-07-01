@@ -1,5 +1,6 @@
 from rest_framework import viewsets
 
+from transactions.utils import is_investment_category
 from .models import Category
 from .serializers import CategorySerializer
 
@@ -13,7 +14,6 @@ DEFAULT_CATEGORIES = [
     {'name': 'Lazer', 'color': '#db2777', 'icon': 'fun'},
     {'name': 'Trabalho', 'color': '#475569', 'icon': 'work'},
     {'name': 'Freelance', 'color': '#0891b2', 'icon': 'job'},
-    {'name': 'Investimentos', 'color': '#16a34a', 'icon': 'chart'},
     {'name': 'Outros', 'color': '#64748b', 'icon': 'tag'},
 ]
 
@@ -34,7 +34,12 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         self.ensure_default_categories()
-        return Category.objects.filter(user=self.request.user)
+        category_ids = [
+            category.id
+            for category in Category.objects.filter(user=self.request.user)
+            if not is_investment_category(category.name)
+        ]
+        return Category.objects.filter(id__in=category_ids)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

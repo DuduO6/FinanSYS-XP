@@ -158,11 +158,24 @@
 .xp-panel div:first-child {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   justify-content: space-between;
 }
 
 .xp-panel strong {
   font-size: 1.8rem;
+}
+
+.level-badge {
+  background: #e8f6f0;
+  border: 1px solid rgba(21, 127, 101, 0.24);
+  border-radius: 999px;
+  color: #157f65;
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  padding: 7px 10px;
 }
 
 .achievement-progress {
@@ -240,7 +253,93 @@
 }
 
 .profile-stats {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-self: stretch;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.profile-badge-panel {
+  align-items: center;
+  animation: badge-pop 680ms var(--ease-out) both;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  grid-column: 1 / -1;
+  justify-content: center;
+  padding: 10px 0 26px;
+  text-align: center;
+}
+
+.profile-badge-panel img {
+  filter: drop-shadow(0 22px 30px rgba(18, 32, 56, 0.22));
+  flex: 0 0 auto;
+  height: 250px;
+  object-fit: contain;
+  width: 250px;
+}
+
+.profile-badge-panel span {
+  color: #64748b;
+  font-weight: 800;
+}
+
+.profile-badge-panel h1 {
+  color: #fff;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1;
+  margin: 0 0 10px;
+}
+
+.profile-badge-panel p {
+  color: #64748b;
+  margin: 0;
+}
+
+.profile-form {
+  align-self: start;
+}
+
+.profile-form:nth-of-type(1) {
+  grid-column: 1;
+}
+
+.profile-stats {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.profile-form:nth-of-type(2),
+.danger-zone {
+  grid-column: 1 / -1;
+}
+
+.profile-stats article {
+  border-top: 4px solid #2f6ecb;
+}
+
+.profile-stats article:nth-child(-n + 3) {
+  border-top-color: #157f65;
+}
+
+.profile-stats article strong {
+  overflow-wrap: anywhere;
+}
+
+.danger-zone {
+  border-color: rgba(168, 40, 40, 0.3);
+  border-top: 4px solid #a82828;
+}
+
+.danger-zone p {
+  color: #64748b;
+  margin: 0;
+}
+
+.danger-zone button {
+  background: #a82828;
 }
 
 .reports-summary article {
@@ -412,5 +511,22 @@
   .profile-stats,
   .bar-row {
     grid-template-columns: 1fr;
+  }
+
+  .profile-badge-panel {
+    padding: 4px 0 20px;
+  }
+
+  .profile-badge-panel img {
+    height: 190px;
+    width: 190px;
+  }
+
+  .profile-form:nth-of-type(1),
+  .profile-stats,
+  .profile-form:nth-of-type(2),
+  .danger-zone {
+    grid-column: 1;
+    grid-row: auto;
   }
 }

@@ -25,7 +25,11 @@ export default function Achievements() {
       {!data ? <p className="achievement-empty">Carregando gamificacao...</p> : (
         <>
           <section className="xp-panel">
-            <div><span>Nível {data.level}</span><strong>{data.xp} XP</strong></div>
+            <div>
+              <span>Nível {data.level}</span>
+              <span className="level-badge">{data.level_class}</span>
+              <strong>{data.xp} XP</strong>
+            </div>
             <div className="achievement-progress"><span style={{ width: `${data.progress}%` }} /></div>
           </section>
           <section className="achievement-grid">
@@ -41,7 +45,12 @@ export default function Achievements() {
             {data.challenges.map((challenge) => (
               <article className="challenge-card" key={challenge.id}>
                 <strong>{challenge.title}</strong>
-                <span>{challenge.xp} XP</span>
+                <span>
+                  {challenge.xp} XP
+                  {typeof challenge.current === 'number' && typeof challenge.target === 'number'
+                    ? ` · ${challenge.current}/${challenge.target}`
+                    : ''}
+                </span>
                 <div className="achievement-progress"><span style={{ width: `${challenge.progress}%` }} /></div>
               </article>
             ))}

@@ -29,7 +29,7 @@ describe('Dashboard', () => {
               date: '2026-06-09',
             },
           ],
-          gamification: { xp: 40, level: 1, next_level_xp: 200, progress: 20 },
+          gamification: { xp: 40, level: 1, level_class: 'Iniciante Financeiro', next_level_xp: 200, progress: 20 },
         }),
       })
       .mockResolvedValueOnce({
@@ -43,6 +43,7 @@ describe('Dashboard', () => {
     expect(screen.getByText(/R\$\s*3\.000,00/)).toBeInTheDocument()
     expect(screen.getByText('Mercado')).toBeInTheDocument()
     expect(screen.getByText('Nível 1')).toBeInTheDocument()
+    expect(screen.getByText(/iniciante financeiro/i)).toBeInTheDocument()
   })
 
   it('exibe estado vazio de categorias e transacoes', async () => {
@@ -57,7 +58,7 @@ describe('Dashboard', () => {
           summary: { income: '0.00', expenses: '0.00', balance: '0.00' },
           expenses_by_category: [],
           recent_transactions: [],
-          gamification: { xp: 0, level: 1, next_level_xp: 200, progress: 0 },
+          gamification: { xp: 0, level: 1, level_class: 'Iniciante Financeiro', next_level_xp: 200, progress: 0 },
         }),
       })
       .mockResolvedValueOnce({

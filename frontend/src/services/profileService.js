@@ -30,3 +30,17 @@ export function updateProfile(profile) {
     body: JSON.stringify(profile),
   })
 }
+
+export function updatePassword(passwords) {
+  return request({
+    method: 'PUT',
+    body: JSON.stringify(passwords),
+  })
+}
+
+export function deleteProfile(password) {
+  return request({
+    method: 'DELETE',
+    body: JSON.stringify({ password }),
+  })
+}
